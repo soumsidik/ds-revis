@@ -7,11 +7,9 @@ interface LoginPageProps {
 }
 
 export function LoginPage({ onLogin }: LoginPageProps) {
-  const adminEmail = import.meta.env.VITE_FIREBASE_ADMIN_EMAIL ?? 'admin@dsrevis.com'
-  const adminPassword = import.meta.env.VITE_FIREBASE_ADMIN_PASSWORD ?? 'admin123'
-
-  const [email, setEmail] = useState(adminEmail)
-  const [password, setPassword] = useState(adminPassword)
+  // On garde la lecture du .env si besoin ailleurs, mais on ne l'utilise plus pour pré-remplir l'état
+  const [email, setEmail] = useState('') // MODIFIÉ : Commence à vide
+  const [password, setPassword] = useState('') // MODIFIÉ : Commence à vide
   const [loginError, setLoginError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -58,22 +56,35 @@ export function LoginPage({ onLogin }: LoginPageProps) {
         <div className="flex w-full items-center justify-center bg-white p-8 lg:w-[55%]">
           <div className="w-full max-w-md">
             <div className="mb-8">
-              {/* REMPLACÉ : Le SVG générique par votre logo */}
-                <div className="mb-4 inline-flex rounded-2xl bg-slate-50 p-1.5 shadow-sm">
+              <div className="mb-4 inline-flex rounded-2xl bg-slate-50 p-1.5 shadow-sm">
                 <img src={logoDs} alt="Logo DS REVIS" className="h-14 w-14 object-contain rounded-xl" />
-                </div>
-                <h2 className="text-3xl font-semibold text-slate-900">Connexion</h2>
+              </div>
+              <h2 className="text-3xl font-semibold text-slate-900">Connexion</h2>
               <p className="mt-2 text-sm text-slate-500">Accédez à votre espace admin DS REVIS</p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label className="mb-2 block text-sm font-medium text-slate-700">Adresse email</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-sm outline-none transition focus:border-sky-400 focus:bg-white" placeholder="admin@dsrevis.com" />
+                <input 
+                  type="email"
+                  autoComplete="off" // Évite le pré-remplissage forcé du navigateur
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-sm outline-none transition focus:border-sky-400 focus:bg-white" 
+                  placeholder="mail.acces@gmail.com" 
+                />
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-slate-700">Mot de passe</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-sm outline-none transition focus:border-sky-400 focus:bg-white" placeholder="••••••••" />
+                <input 
+                  type="password" 
+                  autoComplete="new-password" // Évite les propositions d'anciens mots de passe enregistrés
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-sm outline-none transition focus:border-sky-400 focus:bg-white" 
+                  placeholder="••••••••" 
+                />
               </div>
               {loginError && <div className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-medium text-rose-600">{loginError}</div>}
               <button type="submit" disabled={isSubmitting} className="flex w-full items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/15 transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70">

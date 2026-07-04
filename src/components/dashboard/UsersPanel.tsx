@@ -261,8 +261,8 @@ export function UsersPanel() {
 
       {/* Modal d'édition / suppression de compte */}
       {modalState.item && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4" onClick={closeModal}>
-          <div className="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4 overflow-y-auto" onClick={closeModal}>
+          <div className="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             {modalState.type === 'delete' ? (
               <>
                 <h3 className="text-xl font-semibold text-slate-900">Supprimer l’utilisateur</h3>

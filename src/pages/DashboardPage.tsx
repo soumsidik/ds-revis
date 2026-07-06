@@ -23,6 +23,7 @@ interface DashboardPageProps {
 
 export function DashboardPage({ onLogout }: DashboardPageProps) {
   const [activeMenu, setActiveMenu] = useState<MenuKey>('overview')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const menuItems: { key: MenuKey; label: string }[] = [
     { key: 'overview', label: 'Aperçu' },
@@ -51,15 +52,89 @@ export function DashboardPage({ onLogout }: DashboardPageProps) {
   }
 
   return (
-    // h-screen fige l'application sur la hauteur de la fenêtre disponible
-    <div className="h-screen w-screen p-4 lg:p-6 overflow-hidden bg-slate-100/50">
-      {/* max-h-... et h-full empêchent le conteneur principal de dépasser de l'écran global */}
+    <div className="h-screen w-screen p-4 lg:p-6 overflow-hidden bg-slate-100/50 relative">
+      
+      {/* Styles injectés pour l'animation du menu tiroir sur mobile */}
+      <style>{`
+        @keyframes slideRight {
+          from { transform: translateX(-100%); }
+          to { transform: translateX(0); }
+        }
+        .animate-slideRight {
+          animation: slideRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
+
+      {/* Menu Mobile (Drawer) */}
+      {isMobileMenuOpen && (
+        <>
+          {/* Overlay flou d'arrière-plan */}
+          <div 
+            className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-xs lg:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          {/* Menu Drawer */}
+          <aside className="fixed inset-y-0 left-0 z-50 w-72 bg-slate-950 px-5 py-6 flex flex-col h-full overflow-hidden shadow-2xl animate-slideRight lg:hidden">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white p-1 shadow-md">
+                  <img src={logoDs} alt="DS REVIS" className="h-full w-full object-contain rounded-lg" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-white">DS REVIS</div>
+                  <div className="text-xs text-slate-400">Admin Panel</div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-slate-400 hover:text-white transition cursor-pointer"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              </button>
+            </div>
+
+            <nav className="mt-8 space-y-2 overflow-y-auto pr-1">
+              {menuItems.map((item) => {
+                const active = activeMenu === item.key
+                return (
+                  <button 
+                    key={item.key} 
+                    onClick={() => {
+                      setActiveMenu(item.key)
+                      setIsMobileMenuOpen(false)
+                    }} 
+                    className={`flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition cursor-pointer ${
+                      active 
+                        ? 'bg-white text-slate-900 shadow-lg' 
+                        : 'text-slate-305 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    <span className={`h-5 w-5 ${active ? 'text-sky-600' : 'text-slate-450'}`}>{iconMap[item.key]}</span>
+                    {item.label}
+                  </button>
+                )
+              })}
+            </nav>
+
+            <div className="mt-auto rounded-3xl border border-white/10 bg-white/5 p-4 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white">AD</div>
+                <div>
+                  <div className="text-sm font-semibold text-white">Admin DS</div>
+                  <div className="text-xs text-slate-400">Super admin</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </>
+      )}
+
+      {/* Conteneur Principal */}
       <div className="mx-auto flex h-full max-h-[calc(100vh-3rem)] max-w-7xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-[0_25px_80px_-50px_rgba(15,23,42,0.6)]">
         
-        {/* Barre latérale gauche fixe (n'obéit plus au scroll) */}
+        {/* Barre latérale gauche fixe (bureau uniquement) */}
         <aside className="hidden w-72 shrink-0 border-r border-slate-200 bg-slate-950 px-5 py-6 lg:flex lg:flex-col h-full overflow-hidden">
            <div className="flex items-center gap-3 px-3">
-                {/* REMPLACÉ : Le rectangle dégradé et le SVG par votre logo propre */}
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white p-1 shadow-md">
                     <img src={logoDs} alt="DS REVIS" className="h-full w-full object-contain rounded-xl" />
                 </div>
@@ -92,14 +167,17 @@ export function DashboardPage({ onLogout }: DashboardPageProps) {
           </div>
         </aside>
 
-        {/* CONTENEUR DE DROITE MODIFIÉ : Seul ce bloc défile verticalement via sa propre zone de scroll */}
+        {/* Conteneur de droite */}
         <main className="flex-1 flex flex-col h-full bg-slate-50/70 overflow-hidden">
           
           {/* En-tête fixe en haut à droite */}
           <div className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-4 sm:px-6 shrink-0">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <button className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 lg:hidden">
+                <button 
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 lg:hidden cursor-pointer hover:bg-slate-50 transition"
+                >
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 </button>
                 <div>
@@ -117,7 +195,7 @@ export function DashboardPage({ onLogout }: DashboardPageProps) {
             </div>
           </div>
 
-          {/* Zone interne de défilement dédiée aux composants (Overview, Users, Courses...) */}
+          {/* Zone interne de défilement dédiée aux composants */}
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
             {renderContent()}
           </div>
@@ -126,4 +204,4 @@ export function DashboardPage({ onLogout }: DashboardPageProps) {
       </div>
     </div>
   )
-}
+}

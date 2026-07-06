@@ -262,9 +262,9 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         </ScrollReveal>
 
         {/* Visuel du Hero - Glisse depuis la droite */}
-        <ScrollReveal direction="left" className="lg:col-span-6 relative flex items-center justify-center">
+        <ScrollReveal direction="left" className="lg:col-span-6 relative flex items-center justify-center w-full">
           {/* Cadre de l'image de l'étudiant */}
-          <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white shadow-slate-200/80 bg-slate-100 aspect-4/3 z-10 hover:scale-101 transition duration-500">
+          <div className="relative w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border-4 border-white shadow-slate-200/80 bg-slate-100 aspect-[4/3] z-10 hover:scale-101 transition duration-500">
             <img
               src="/hero_medical_students.png"
               alt="Étudiants africains en médecine avec l'application DS REVIS"
@@ -310,8 +310,8 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         <div className="mx-auto max-w-7xl px-6 grid gap-12 lg:grid-cols-12 items-center">
 
           {/* Image illustrative gauche - Glisse depuis la gauche */}
-          <ScrollReveal direction="right" className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-100 hover:scale-101 transition duration-500">
+          <ScrollReveal direction="right" className="lg:col-span-5 flex justify-center w-full">
+            <div className="relative w-full max-w-xl rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-100 aspect-[3/4] hover:scale-101 transition duration-500">
               <img
                 src="/student_quiz_features.png"
                 alt="Étudiant révisant ses quiz de médecine sur mobile"
@@ -565,6 +565,79 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                         </li>
                       ))}
                     </ul>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Témoignages - Ce qu'ils disent de notre application */}
+      <section id="testimonials" className="relative z-10 py-24 bg-white border-b border-slate-100">
+        <div className="mx-auto max-w-7xl px-6 space-y-16">
+          <ScrollReveal direction="up" className="text-center space-y-4 max-w-3xl mx-auto">
+            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Retours d'expérience</span>
+            <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl tracking-tight">
+              Ce qu'ils disent de notre application
+            </h2>
+            <p className="text-slate-600 leading-relaxed">
+              Découvrez les témoignages d'étudiants en médecine, soins infirmiers et maïeutique qui révisent au quotidien avec DS REVIS.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                quote: "DS REVIS a complètement changé ma méthode de travail. Les QCM en pharmacologie correspondent exactement aux épreuves de l'INFAS. J'ai obtenu ma Licence 2 sans rattrapage !",
+                author: "Koffi Yao Laurent",
+                specialty: "IDE (Infirmier) - Licence 2",
+                rating: 5,
+                delay: 0
+              },
+              {
+                quote: "Le mode hors-ligne est un vrai plus. Je télécharge mes fiches de cours à l'école et je révise chez moi le soir sans avoir besoin de connexion Internet. Les corrections sont très détaillées.",
+                author: "Mariama Diallo",
+                specialty: "SF (Sage-Femme) - Licence 1",
+                rating: 5,
+                delay: 100
+              },
+              {
+                quote: "Une application indispensable pour les auxiliaires de santé. Les cas cliniques et les questions de PMI m'aident énormément à valider mes compétences pratiques lors de mes stages.",
+                author: "Amadou Touré",
+                specialty: "AS (Auxiliaire de Santé) - Licence 2",
+                rating: 5,
+                delay: 200
+              }
+            ].map((testi, idx) => (
+              <ScrollReveal
+                key={idx}
+                delay={testi.delay}
+                direction="up"
+                className="rounded-3xl border border-slate-100 bg-slate-50/40 p-8 shadow-xs hover:shadow-lg hover:border-blue-200 transition-all duration-300 flex flex-col justify-between space-y-6"
+              >
+                {/* Étoiles d'évaluation */}
+                <div className="flex gap-1">
+                  {[...Array(testi.rating)].map((_, i) => (
+                    <svg key={i} className="h-5 w-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+
+                {/* Citation */}
+                <p className="text-sm text-slate-600 italic leading-relaxed flex-1">
+                  “ {testi.quote} ”
+                </p>
+
+                {/* Profil */}
+                <div className="flex items-center gap-3 border-t border-slate-100 pt-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600 font-extrabold text-sm border border-blue-100">
+                    {testi.author.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900">{testi.author}</h4>
+                    <span className="text-[10px] font-semibold text-slate-500">{testi.specialty}</span>
                   </div>
                 </div>
               </ScrollReveal>

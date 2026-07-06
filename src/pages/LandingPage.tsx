@@ -6,14 +6,14 @@ interface LandingPageProps {
 }
 
 // Composant utilitaire pour animer les éléments au défilement avec choix de direction
-function ScrollReveal({ 
-  children, 
-  className = '', 
+function ScrollReveal({
+  children,
+  className = '',
   delay = 0,
   direction = 'up'
-}: { 
-  children: React.ReactNode; 
-  className?: string; 
+}: {
+  children: React.ReactNode;
+  className?: string;
   delay?: number;
   direction?: 'up' | 'down' | 'left' | 'right'
 }) {
@@ -85,7 +85,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
 
   return (
     <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden relative">
-      
+
       {/* Styles CSS pour les effets de flottement et micro-animations */}
       <style>{`
         @keyframes float {
@@ -133,8 +133,8 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           <a href="#features" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition duration-300">Fonctionnalités</a>
           <a href="#filiere" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition duration-300">Filières</a>
           <a href="#download" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition duration-300">Télécharger</a>
-          <button 
-            onClick={() => onNavigate('/politique-confidentialite')} 
+          <button
+            onClick={() => onNavigate('/politique-confidentialite')}
             className="text-sm font-semibold text-slate-500 hover:text-blue-600 transition duration-300 cursor-pointer bg-transparent border-none p-0"
           >
             Confidentialité
@@ -142,7 +142,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         </nav>
 
         {/* Bouton Hamburger pour mobiles */}
-        <button 
+        <button
           onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
           className="flex md:hidden h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 transition duration-300 cursor-pointer"
           aria-label="Menu de navigation"
@@ -157,32 +157,32 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         {/* Menu déroulant mobile */}
         {isMobileNavOpen && (
           <div className="absolute top-full left-0 right-0 border-b border-slate-100 bg-white/95 backdrop-blur-md px-6 py-4 shadow-xl flex flex-col gap-4 md:hidden z-45 transition-all duration-300 animate-fadeIn">
-            <a 
-              href="#features" 
+            <a
+              href="#features"
               onClick={() => setIsMobileNavOpen(false)}
               className="text-sm font-bold text-slate-700 hover:text-blue-600 py-2 border-b border-slate-50"
             >
               Fonctionnalités
             </a>
-            <a 
-              href="#filiere" 
+            <a
+              href="#filiere"
               onClick={() => setIsMobileNavOpen(false)}
               className="text-sm font-bold text-slate-700 hover:text-blue-600 py-2 border-b border-slate-50"
             >
               Filières
             </a>
-            <a 
-              href="#download" 
+            <a
+              href="#download"
               onClick={() => setIsMobileNavOpen(false)}
               className="text-sm font-bold text-slate-700 hover:text-blue-600 py-2 border-b border-slate-50"
             >
               Télécharger
             </a>
-            <button 
+            <button
               onClick={() => {
                 setIsMobileNavOpen(false)
                 onNavigate('/politique-confidentialite')
-              }} 
+              }}
               className="text-sm font-bold text-left text-slate-700 hover:text-blue-600 py-2 cursor-pointer bg-transparent border-none p-0"
             >
               Politique de Confidentialité
@@ -193,7 +193,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
 
       {/* Hero Section */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-20 lg:pt-24 lg:pb-28 grid gap-12 lg:grid-cols-12 items-center">
-        
+
         {/* Texte du Hero - Glisse depuis la gauche */}
         <ScrollReveal direction="right" className="space-y-8 lg:col-span-6">
           <div className="inline-flex items-center gap-2 rounded-full bg-blue-50/80 px-4 py-1.5 text-xs font-bold text-blue-600 border border-blue-100/50 backdrop-blur-sm">
@@ -206,12 +206,12 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           </h1>
 
           <p className="text-lg text-slate-600 leading-relaxed">
-            Spécialement développée pour accompagner les étudiants africains en santé (INFAS, IDE, SF, AS), l'application regroupe vos fiches de cours, vos évaluations corrigées (QCM & QCD) et suit votre progression académique, même sans connexion Internet.
+            Spécialement développée pour accompagner les étudiants en santé (INFAS, IDE, SF, AS), l'application regroupe vos fiches de cours, vos évaluations corrigées (QCM & QCD) et suit votre progression académique, même sans connexion Internet.
           </p>
 
           {/* Boutons d'Action (Vert dominant pour le bouton principal) */}
           <div className="flex flex-col sm:flex-row gap-4 pt-2">
-            <button 
+            <button
               onClick={handleDownloadApk}
               disabled={isDownloading}
               className="group inline-flex items-center justify-center gap-3 rounded-2xl bg-green-600 hover:bg-green-500 px-8 py-4 text-base font-bold text-white shadow-lg shadow-green-600/10 hover:shadow-green-600/20 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
@@ -236,8 +236,8 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                 </>
               )}
             </button>
-            <a 
-              href="#features" 
+            <a
+              href="#features"
               className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 px-8 py-4 text-base font-bold text-slate-700 transition-all duration-300"
             >
               Découvrir les fonctionnalités
@@ -265,9 +265,9 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
         <ScrollReveal direction="left" className="lg:col-span-6 relative flex items-center justify-center">
           {/* Cadre de l'image de l'étudiant */}
           <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white shadow-slate-200/80 bg-slate-100 aspect-4/3 z-10 hover:scale-101 transition duration-500">
-            <img 
-              src="/hero_medical_students.png" 
-              alt="Étudiants africains en médecine avec l'application DS REVIS" 
+            <img
+              src="/hero_medical_students.png"
+              alt="Étudiants africains en médecine avec l'application DS REVIS"
               className="w-full h-full object-cover"
             />
             {/* Overlay transparent dégradé */}
@@ -308,13 +308,13 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
       {/* Section Description & Fonctionnalités Clés */}
       <section id="features" className="relative z-10 bg-slate-50/70 py-24 border-y border-slate-100">
         <div className="mx-auto max-w-7xl px-6 grid gap-12 lg:grid-cols-12 items-center">
-          
+
           {/* Image illustrative gauche - Glisse depuis la gauche */}
           <ScrollReveal direction="right" className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-100 hover:scale-101 transition duration-500">
-              <img 
-                src="/student_quiz_features.png" 
-                alt="Étudiant révisant ses quiz de médecine sur mobile" 
+              <img
+                src="/student_quiz_features.png"
+                alt="Étudiant révisant ses quiz de médecine sur mobile"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent" />
@@ -394,7 +394,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
       {/* Section Filières - Glissent vers le haut */}
       <section id="filiere" className="relative z-10 py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 space-y-16">
-          
+
           <ScrollReveal direction="up" className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Des parcours d'études spécialisés</span>
             <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl tracking-tight">
@@ -408,30 +408,30 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           {/* Grille des spécialités avec mockups mobiles réalistes */}
           <div className="grid gap-8 md:grid-cols-3">
             {[
-              { 
-                label: "IDE (Infirmier Diplômé d'État)", 
-                desc: "Sciences infirmières, pharmacologie, calcul de doses, déontologie et éthique clinique.", 
+              {
+                label: "IDE (Infirmier Diplômé d'État)",
+                desc: "Sciences infirmières, pharmacologie, calcul de doses, déontologie et éthique clinique.",
                 img: "/filiere_ide_mockup.png",
                 badgeColor: "bg-blue-50 text-blue-600 border-blue-100",
                 delay: 0
               },
-              { 
-                label: "SF (Sage-Femme)", 
-                desc: "Soins obstétricaux, gynécologie, consultations prénatales, planification familiale et PMI.", 
+              {
+                label: "SF (Sage-Femme)",
+                desc: "Soins obstétricaux, gynécologie, consultations prénatales, planification familiale et PMI.",
                 img: "/filiere_sf_mockup.png",
                 badgeColor: "bg-indigo-50 text-indigo-600 border-indigo-100",
                 delay: 100
               },
-              { 
-                label: "AS (Auxiliaire de Santé)", 
-                desc: "Soins d'hygiène et de confort de base, accueil et installation des patients, suivi de PMI.", 
+              {
+                label: "AS (Auxiliaire de Santé)",
+                desc: "Soins d'hygiène et de confort de base, accueil et installation des patients, suivi de PMI.",
                 img: "/filiere_as_mockup.png",
                 badgeColor: "bg-emerald-50 text-emerald-600 border-emerald-100",
                 delay: 200
               }
             ].map((fil, idx) => (
-              <ScrollReveal 
-                key={idx} 
+              <ScrollReveal
+                key={idx}
                 delay={fil.delay}
                 direction="up"
                 className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col justify-between"
@@ -445,12 +445,12 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed min-h-[48px]">{fil.desc}</p>
                 </div>
-                
+
                 {/* Mockup Mobile Réaliste */}
                 <div className="mt-6 rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 aspect-13/10 shadow-inner">
-                  <img 
-                    src={fil.img} 
-                    alt={`Mockup mobile ${fil.label}`} 
+                  <img
+                    src={fil.img}
+                    alt={`Mockup mobile ${fil.label}`}
                     className="w-full h-full object-cover transform hover:scale-103 transition duration-500"
                   />
                 </div>
@@ -463,7 +463,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
       {/* Nouvelle grande section dédiée à la couverture des programmes */}
       <section id="progression" className="relative z-10 py-24 bg-slate-50/70 border-b border-slate-100">
         <div className="mx-auto max-w-7xl px-6 space-y-16">
-          
+
           <ScrollReveal direction="up" className="text-center space-y-4 max-w-3xl mx-auto">
             <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Suivi et Fiabilité</span>
             <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl tracking-tight">
@@ -545,7 +545,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
                       </span>
                       <span className={`text-2xl font-bold ${stat.statsColor}`}>%</span>
                     </div>
-                    
+
                     {/* Jauge épaisse animée */}
                     <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
                       <div className={`bg-gradient-to-r ${stat.barColor} h-full rounded-full transition-all duration-1000 ease-out`} style={{ width: `${stat.percent}%` }} />
@@ -587,7 +587,7 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           </p>
 
           <div className="flex flex-col items-center gap-4">
-            <button 
+            <button
               onClick={handleDownloadApk}
               disabled={isDownloading}
               className="group inline-flex items-center justify-center gap-3 rounded-2xl bg-green-600 hover:bg-green-500 px-10 py-5 text-base font-bold text-white shadow-xl shadow-green-600/10 hover:shadow-green-600/20 transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
@@ -628,8 +628,8 @@ export function LandingPage({ onNavigate }: LandingPageProps) {
           </div>
 
           <div className="flex gap-6">
-            <button 
-              onClick={() => onNavigate('/politique-confidentialite')} 
+            <button
+              onClick={() => onNavigate('/politique-confidentialite')}
               className="hover:text-blue-600 transition duration-300 cursor-pointer bg-transparent border-none p-0 text-slate-500 font-semibold"
             >
               Politique de Confidentialité
